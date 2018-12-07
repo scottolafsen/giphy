@@ -1,0 +1,29 @@
+button {
+margin: 8px;
+}
+p {
+    color: aliceblue;
+    margin-bottom: 0rem;
+    margin-left: 10px;
+    
+}
+label {
+    color: aliceblue;
+}
+img {
+    margin: 10px;
+    
+}
+h1 {
+    color: aliceblue
+}
+.gif {
+    background-color: rgb(20, 50, 60, .7);
+    margin: 16px;
+}
+.favorite {
+    font-size: .7rem;
+}
+#btns, #form {
+    background-color: rgb(20, 50, 60, .7);
+}
