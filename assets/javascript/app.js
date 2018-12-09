@@ -34,8 +34,20 @@ $(document).ready(function () {
             localStorage.setItem("favorites", favoriteGifs);
         }
         else { return }
-        console.log(favoriteGifs);
+       
     });
+
+    /// Remove favorite Button
+    $(document).on("click", ".remove", function (event) {
+        event.preventDefault();
+        var removeId = $(this).attr("id");
+        var indexNum = favoriteGifs.indexOf(removeId)
+        favoriteGifs.splice(indexNum, 1);
+        localStorage.clear();
+        localStorage.setItem("favorites", favoriteGifs);
+        displayFavorites();
+    });
+
 
     /// Animate the GIF
     $(document).on("click", "img", function () {
@@ -47,7 +59,6 @@ $(document).ready(function () {
             $(this).attr("src", $(this).attr("still"));
             $(this).attr("data-state", "still");
         }
-        console.log("hello");
     });
     renderButtons();
 
@@ -55,18 +66,15 @@ $(document).ready(function () {
     $(document).on("click", ".gifBtn", function () {
         $("#giphys").empty()
         var button = $(this).attr("data-name");
+        var articles = 10;
         var APIKey = "ptx8Q3pHYEgxzVeybzhkHdG73rm1zb12";
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + button + "&api_key=" + APIKey + "&limit=10";
-        console.log(button);
-        console.log(queryURL);
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + button + "&api_key=" + APIKey + "&limit=" + articles;
 
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
             var results = response.data;
-
             for (var i = 0; i < results.length; i++) {
                 if (results[i].rating !== "r") {
                     var favorite = $("<button>").text("Add to Favorites");
@@ -93,13 +101,15 @@ $(document).ready(function () {
 
     /// Displaying Favorite Gifs
     $(document).on("click", "#favorite-gif", function () {
+        displayFavorites();
+    });
+
+    /// Display Favorite Gifs
+    var displayFavorites = function () {
         $("#giphys").empty()
         var favString = localStorage.getItem("favorites")
         var APIKey = "ptx8Q3pHYEgxzVeybzhkHdG73rm1zb12";
         var queryURL = "https://api.giphy.com/v1/gifs?ids=" + favString + "&api_key=" + APIKey;
-        console.log(favString);
-        console.log(queryURL);
-
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -110,6 +120,9 @@ $(document).ready(function () {
             for (var i = 0; i < results.length; i++) {
                 if (results[i].rating !== "r") {
                     var gifDiv = $("<div class = gif>");
+                    var removeGif = $("<button>").text("X");
+                    removeGif.addClass("btn btn-danger remove");
+                    removeGif.attr("id", results[i].id);
                     var rating = results[i].rating;
                     var title = results[i].title;
                     var p = $("<p>").text("Rating: " + rating);
@@ -119,14 +132,14 @@ $(document).ready(function () {
                     gifImage.attr("animate", results[i].images.fixed_height.url);
                     gifImage.attr("still", results[i].images.fixed_height_still.url);
                     gifImage.attr("data-state", "still");
-                    gifDiv.append(p2, p);
-                    // gifDiv.prepend(favorite);
+                    gifDiv.append(removeGif, p2, p);
                     gifDiv.append(gifImage);
                     $("#giphys").prepend(gifDiv);
                 }
             }
         });
-    });
+    }
+
 
 
 });

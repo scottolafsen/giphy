@@ -24,6 +24,6 @@ h1 {
 .favorite {
     font-size: .7rem;
 }
-#btns, #form {
+#btns, #form, #bottom {
     background-color: rgb(20, 50, 60, .7);
 }
