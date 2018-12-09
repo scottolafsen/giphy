@@ -37,7 +37,7 @@ $(document).ready(function () {
        
     });
 
-    /// Remove favorite Button
+    /// Remove item from favorites Button
     $(document).on("click", ".remove", function (event) {
         event.preventDefault();
         var removeId = $(this).attr("id");
@@ -60,16 +60,15 @@ $(document).ready(function () {
             $(this).attr("data-state", "still");
         }
     });
-    renderButtons();
-
-    /// Generates GIFS
+ 
+    /// Generates GIFS from subject button click
     $(document).on("click", ".gifBtn", function () {
         $("#giphys").empty()
         var button = $(this).attr("data-name");
         var articles = 10;
         var APIKey = "ptx8Q3pHYEgxzVeybzhkHdG73rm1zb12";
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + button + "&api_key=" + APIKey + "&limit=" + articles;
-
+        // ajax call
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -139,6 +138,7 @@ $(document).ready(function () {
             }
         });
     }
+    renderButtons();
 
 
 
