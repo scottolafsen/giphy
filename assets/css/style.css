@@ -15,7 +15,7 @@ img {
     
 }
 h1 {
-    color: aliceblue
+    color: greenyellow
 }
 .gif {
     background-color: rgb(20, 50, 60, .7);
@@ -30,3 +30,11 @@ h1 {
 #btns, #form, #bottom {
     background-color: rgb(20, 50, 60, .7);
 }
+
+body {
+    background-image: url("../images/slctwins.JPG");
+    background-repeat: repeat;
+    background-position: right top;
+    background-attachment: fixed;
+    background-size: 2000px 1500px;
+  }
